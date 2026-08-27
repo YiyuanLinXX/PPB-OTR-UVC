@@ -2,7 +2,13 @@
 
 **Prescription-based autonomous UV-C treatment for specialty crops**
 
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE) [![ROS 2](https://img.shields.io/badge/ROS%202-ament__python-22314E.svg)](https://docs.ros.org/)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE) [![ROS 2](https://img.shields.io/badge/ROS%202-ament__python-22314E.svg)](https://docs.ros.org/)[[**`Project page`**](https://yiyuanlinxx.github.io/robots/ppb-otr-uvc)]
+
+
+PPB-OTR-UVC is an autonomous field-robotics platform for site-specific UV-C treatment in vineyards and other specialty crops. It combines dual-antenna RTK GNSS navigation with a treatment prescription: the robot energizes its UV lamps only inside prescribed zones, slows down to deliver the configured treatment, and travels faster between treatment zones.
+
+> [!CAUTION]
+> UV-C radiation can injure eyes and skin. This repository is research software, not a certified safety system. Its software interlocks do not replace a physical emergency stop, keyed enable, shielding, warning indicators, access control, or a site-specific risk assessment. Read [SAFETY.md](SAFETY.md) before connecting a lamp power circuit.
 
 <p align="center">
   <a href="assets/PPB_OTR_UVC_web.mp4">
@@ -10,16 +16,6 @@
   </a>
 </p>
 
-<p align="center">
-  <a href="assets/PPB_OTR_UVC_web.mp4"><strong>Watch the full field demonstration (MP4, 28 seconds)</strong></a>
-</p>
-
-PPB-OTR-UVC is an autonomous field-robotics platform for site-specific UV-C treatment in vineyards and other specialty crops. It combines dual-antenna RTK GNSS navigation with a treatment prescription: the robot energizes its UV lamps only inside prescribed zones, slows down to deliver the configured treatment, and travels faster between treatment zones.
-
-[Project page](https://yiyuanlinxx.github.io/robots/ppb-otr-uvc)
-
-> [!CAUTION]
-> UV-C radiation can injure eyes and skin. This repository is research software, not a certified safety system. Its software interlocks do not replace a physical emergency stop, keyed enable, shielding, warning indicators, access control, or a site-specific risk assessment. Read [SAFETY.md](SAFETY.md) before connecting a lamp power circuit.
 
 ## What the system does
 
@@ -68,12 +64,42 @@ The power relay is the electrical actuator; **UV treatment is the application**.
 ## Requirements
 
 - Ubuntu or another Linux environment supported by your ROS 2 distribution
-- ROS 2 with `colcon`, `rosdep`, and `twist_mux`
+- ROS 2 (source its setup file first so that `ROS_DISTRO` is set)
 - Python 3.10 or newer
 - A UM982-compatible GNSS receiver and robot base for field operation
-- Raspberry Pi GPIO support (`gpiozero` with the `lgpio` backend) for physical lamp switching
 
-The pure logic tests do not require ROS or hardware.
+Install the required apt packages:
+
+```bash
+# Replace "humble" if you use a different ROS 2 distribution.
+source /opt/ros/humble/setup.bash
+sudo apt update
+sudo apt install -y \
+  python3-colcon-common-extensions \
+  python3-rosdep \
+  python3-pip \
+  python3-numpy \
+  python3-scipy \
+  python3-serial \
+  python3-pyproj \
+  python3-pytest \
+  "ros-${ROS_DISTRO}-tf-transformations" \
+  "ros-${ROS_DISTRO}-twist-mux"
+```
+
+Install the remaining Python package:
+
+```bash
+python3 -m pip install --user simple-pid
+```
+
+For physical lamp switching on a Raspberry Pi, also install `gpiozero` and its `lgpio` backend:
+
+```bash
+sudo apt install -y python3-gpiozero python3-lgpio
+```
+
+A UM982-compatible GNSS receiver and robot base are required only for field operation. The GPIO packages are optional when `mock_gpio: true` is used. The pure logic tests do not require ROS or hardware.
 
 ## Build
 
