@@ -2,11 +2,21 @@
 
 **Prescription-based autonomous UV-C treatment for specialty crops**
 
-[![CI](https://github.com/YiyuanLinXX/PPB-OTR-UVC/actions/workflows/ci.yml/badge.svg)](https://github.com/YiyuanLinXX/PPB-OTR-UVC/actions/workflows/ci.yml) [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE) [![ROS 2](https://img.shields.io/badge/ROS%202-ament__python-22314E.svg)](https://docs.ros.org/)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE) [![ROS 2](https://img.shields.io/badge/ROS%202-ament__python-22314E.svg)](https://docs.ros.org/)
+
+<p align="center">
+  <a href="assets/PPB_OTR_UVC_web.mp4">
+    <img src="assets/PPB_OTR_UVC_preview.gif" alt="PPB-OTR-UVC robot performing prescription-based UV-C treatment in a vineyard" width="600">
+  </a>
+</p>
+
+<p align="center">
+  <a href="assets/PPB_OTR_UVC_web.mp4"><strong>Watch the full field demonstration (MP4, 28 seconds)</strong></a>
+</p>
 
 PPB-OTR-UVC is an autonomous field-robotics platform for site-specific UV-C treatment in vineyards and other specialty crops. It combines dual-antenna RTK GNSS navigation with a treatment prescription: the robot energizes its UV lamps only inside prescribed zones, slows down to deliver the configured treatment, and travels faster between treatment zones.
 
-[Watch the field demonstration](assets/PPB_OTR_UVC_web.mp4) · [Project page](https://yiyuanlinxx.github.io/robots/ppb-otr-uvc)
+[Project page](https://yiyuanlinxx.github.io/robots/ppb-otr-uvc)
 
 > [!CAUTION]
 > UV-C radiation can injure eyes and skin. This repository is research software, not a certified safety system. Its software interlocks do not replace a physical emergency stop, keyed enable, shielding, warning indicators, access control, or a site-specific risk assessment. Read [SAFETY.md](SAFETY.md) before connecting a lamp power circuit.
