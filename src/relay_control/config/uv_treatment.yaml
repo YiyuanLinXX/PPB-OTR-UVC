@@ -1,0 +1,67 @@
+uv_treatment_node:
+  ros__parameters:
+    # UV treatment prescription columns: latitude,longitude,action.
+    # Copy this file outside the repository and set an absolute route path.
+    waypoint_file: "/path/to/uv_treatment_waypoints.csv"
+
+    # Trigger the next lamp action inside this radius around its boundary.
+    trigger_distance_m: 0.5
+
+    # Minimum robot travel between two consecutive lamp actions.
+    hysteresis_distance_m: 0.3
+
+    # If a boundary is narrowly missed, infer passage only after a confirmed
+    # approach followed by several deadband-qualified steps moving away.
+    missed_waypoint_enabled: true
+    approach_confirmation_m: 0.5
+    pass_confirmation_m: 0.3
+    max_closest_approach_m: 1.5
+    away_confirmation_samples: 3
+    trend_epsilon_m: 0.03
+
+    # Navigation target speeds inside and outside UV treatment zones.
+    uv_on_speed_mps: 0.12
+    uv_off_speed_mps: 0.5
+
+    # Conservative speed published while a required input is invalid or stale.
+    failsafe_speed_mps: 0.1
+    speed_topic: "/uv_treatment/target_speed"
+
+    # Do not energize UV lamps until navigation confirms the treatment speed.
+    require_speed_ack: true
+    speed_ack_topic: "/navigation/active_target_speed"
+    speed_ack_timeout_sec: 1.0
+    speed_ack_tolerance_mps: 0.02
+
+    # UV can operate only while the waypoint follower reports active autonomous
+    # navigation. A stale or false heartbeat forces lamps OFF and freezes progress.
+    navigation_active_required: true
+    navigation_state_topic: "/navigation/uv_treatment_enable"
+    navigation_state_timeout_sec: 0.5
+
+    # Also verify that twist_mux selected the navigation command. This catches
+    # manual teleoperation even if the navigation node is still running.
+    require_cmd_vel_match: true
+    navigation_cmd_topic: "/cmd_vel_nav"
+    robot_cmd_topic: "/cmd_vel_out"
+    cmd_vel_timeout_sec: 0.5
+    linear_cmd_tolerance_mps: 0.03
+    angular_cmd_tolerance_rps: 0.05
+
+    # BCM GPIO 23 is physical header pin 16 on common Raspberry Pi headers.
+    gpio_pin: 23
+
+    gps_topic: "/gps/fix"
+    gps_timeout_sec: 1.0
+
+    # Zero-based prescription row to wait for when starting or restarting.
+    start_waypoint_index: 0
+
+    # Persistent recovery state. Updated after every treatment boundary.
+    progress_file: "/path/to/uv_treatment_progress.json"
+
+    # prompt: ask to resume; resume: always resume; restart: always start new.
+    recovery_mode: "prompt"
+
+    # Set true to test without accessing physical GPIO.
+    mock_gpio: false

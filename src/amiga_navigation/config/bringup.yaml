@@ -1,0 +1,70 @@
+um982_driver:
+  ros__parameters:
+    # Full-duplex Type-C USB serial device:
+    # ls -l /dev/serial/by-id/
+    serial_port: "/dev/serial/by-id/your-um982"
+    baudrate: 115200
+
+    # ANT1 is the master-position antenna; ANT2 is the heading/slave antenna.
+    # baseline_m is the measured ANT1-to-ANT2 distance in metres.
+    baseline_m: 1.0
+    baseline_tolerance_m: 0.1
+
+    # ANT1-to-ANT2 direction relative to the robot's forward direction,
+    # viewed from above. Positive angles turn clockwise toward robot-right.
+    #
+    #   ANT1 rear,  ANT2 front:  0.0
+    #   ANT1 front, ANT2 rear:  180.0
+    #   ANT2 on the robot's right side of ANT1:  90.0
+    #   ANT2 on the robot's left side of ANT1:  -90.0
+    #
+    # Change this value when the antenna layout changes; no code change is
+    # required. The driver still computes position at the antenna midpoint.
+    antenna_baseline_angle_deg: 0.0
+
+    # Optional small compass-heading calibration applied after layout
+    # compensation. Normally leave this at zero.
+    heading_offset_deg: 0.0
+
+    # Set to -1.0 only if the reported pitch sign is opposite to the desired
+    # robot pitch convention.
+    pitch_multiplier: 1.0
+    configure_receiver_on_start: true
+    receiver_output_period_sec: 0.1
+
+    # A navigation pose is valid only when all thresholds pass.
+    max_heading_stddev_deg: 1.0
+    max_heading_age_sec: 0.3
+    max_position_heading_skew_sec: 0.2
+    max_differential_age_sec: 3.0
+    minimum_heading_satellites: 6
+
+    # Terminal GPS status summary. Logs immediately when the solution changes
+    # between OK and NOT FIX, then at this low-rate period while unchanged.
+    gps_status_log_enabled: true
+    gps_status_log_period_sec: 5.0
+
+    # Set ntrip_enabled only after supplying your own caster settings.
+    ntrip_enabled: false
+    ntrip_host: ""
+    ntrip_port: 2101
+    ntrip_mountpoint: ""
+    ntrip_username: ""
+    ntrip_password: ""
+    # NTRIP v1 (ICY) and v2 (HTTP) responses are accepted automatically.
+    # TLS must be selected explicitly so credentials are never probed in cleartext.
+    ntrip_use_tls: false
+    ntrip_socket_timeout_sec: 10.0
+    ntrip_data_timeout_sec: 5.0
+
+amiga_serial_bridge:
+  ros__parameters:
+    # Feather M4 CAN USB serial device:
+    # ls -l /dev/serial/by-id/
+    serial_port: "/dev/serial/by-id/your-amiga-can-bridge"
+    baudrate: 115200
+    serial_timeout_sec: 1.0
+
+    # If /cmd_vel_out stops updating, the bridge sends one stop command.
+    watchdog_timeout_sec: 2.0
+    watchdog_period_sec: 0.1

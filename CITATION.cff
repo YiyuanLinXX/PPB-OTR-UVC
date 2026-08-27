@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use PPB-OTR-UVC in your research, please cite this software."
+title: "PPB-OTR-UVC: Prescription-based autonomous UV-C treatment"
+type: software
+authors:
+  - family-names: Lin
+    given-names: Yiyuan
+version: 0.6.0
+date-released: 2026-08-27
+license: Apache-2.0
+repository-code: "https://github.com/YiyuanLinXX/PPB-OTR-UVC"
+url: "https://yiyuanlinxx.github.io/robots/ppb-otr-uvc"
+keywords:
+  - agricultural robotics
+  - precision agriculture
+  - UV-C treatment
+  - autonomous navigation
+  - RTK GNSS
+  - ROS 2

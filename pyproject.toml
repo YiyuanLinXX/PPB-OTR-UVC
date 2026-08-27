@@ -1,0 +1,10 @@
+[tool.pytest.ini_options]
+testpaths = [
+  "src/relay_control/test",
+  "src/amiga_navigation/test",
+]
+pythonpath = [
+  "src/relay_control",
+  "src/amiga_navigation",
+]
+addopts = "-ra"
